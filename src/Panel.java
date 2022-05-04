@@ -10,22 +10,24 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class Panel extends JPanel implements KeyListener{
-    private char userWords[][] ;
+    private char userWords[][] = new char[6][5];
+
+    private int userCharX=0;
+    private int userCharY=0;
 
     public Panel(){
         super();
         this.setBounds(0,0,310,370);
         this.setVisible(true);
 
-        userWords= new char[][]{
-        {'T','E','S','T','S'},
-        {'T','E','S','T','S'},
-        {'T','E','S','T','S'},
-        {'T','E','S','T','S'},
-        {'T','E','S','T','S'},
-        {'T','E','S','T','S'}};
-
+        this.setFocusable(true);
         this.addKeyListener(this);
+
+        for(int i=0;i<6;i++){
+            for(int j=0;j<5;j++){
+                userWords[i][j]=' ';
+            }
+        }
     }
 
     protected void paintComponent(Graphics g){
@@ -51,7 +53,10 @@ public class Panel extends JPanel implements KeyListener{
         for(int i=0;i<6;i++){
             for(int j=0;j<5;j++){
                 g.drawRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
-                g2d.drawString(String.valueOf(userWords[i][j]), (j+1)*10+j*50+50/2-textwidth/2,(i+1)*10+i*50+50/2-textheight/2);
+                
+                if(userWords[i][j]!=' '){
+                    g2d.drawString(String.valueOf(userWords[i][j]), (j+1)*10+j*50+50/2-textwidth/2,(i+1)*10+i*50+50-textheight/6);
+                }
             }
         }
     }
@@ -64,13 +69,26 @@ public class Panel extends JPanel implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        
-        
+        if(e.getKeyChar() >= 'A' && e.getKeyChar() <= 'Z' || e.getKeyChar() >= 'a' && e.getKeyChar() <= 'z'){
+            if(userWords[userCharY][userCharX]==' '){
+                userWords[userCharY][userCharX] = Character.toUpperCase(e.getKeyChar());
+            }
+            if(userCharX !=4){  
+                userCharX++;
+            }
+            System.out.println(userCharX);
+            
+            repaint();
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+
+        }
+
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        
         
     }
 }
