@@ -59,6 +59,11 @@ public class Panel extends JPanel implements KeyListener{
                 g.drawRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
                 
                 if(userWords[i][j]!=' '){
+                    if(userCharY>i){
+                        g.setColor(new Color(45,45,45));
+                        g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
+                    }
+                    g.setColor(Color.white);
                     g2d.drawString(String.valueOf(userWords[i][j]), (j+1)*10+j*50+50/2-textwidth/2,(i+1)*10+i*50+50-textheight/6);
                 }
             }
@@ -101,9 +106,10 @@ public class Panel extends JPanel implements KeyListener{
                 if(userWords[userCharY][4] != ' '){
                     userCharX = 0;
                     userCharY ++;
+                    repaint();
                 }
             }
-            else if(userCharY==5){
+            else if(userCharY==5 && userWords[userCharY][4] != ' '){
                 gameOver();
             }
         }
