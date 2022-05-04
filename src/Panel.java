@@ -19,6 +19,10 @@ public class Panel extends JPanel implements KeyListener{
 
     private Frame frame;
 
+    private String checkInput;
+
+    private char[] gameWord;
+
     public Panel(Frame frame) throws Exception{
         super();
         this.setBounds(0,0,310,370);
@@ -30,6 +34,8 @@ public class Panel extends JPanel implements KeyListener{
         this.frame = frame;
         this.frame.add(this);
         this.requestFocus();
+
+        gameWord = words.generateWord();
 
         for(int i=0;i<6;i++){
             for(int j=0;j<5;j++){
@@ -106,13 +112,12 @@ public class Panel extends JPanel implements KeyListener{
         }
 
         // enter logic
-        String checkInput = new String();
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             if(userCharY <= 5){
                 if(userWords[userCharY][4] != ' '){
+                    checkInput=new String();
                     for(int i=0;i<5;i++){
                         checkInput += userWords[userCharY][i];
-                        System.out.println(checkInput);
                     }
 
                     if(words.checkExist(checkInput.toLowerCase())==false){

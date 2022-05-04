@@ -17,11 +17,22 @@ public class Frame extends JFrame {
     }
 
     public void shake(){
-        this.setLocation(this.getLocation().x+10, this.getLocation().y+10);
-        this.setLocation(this.getLocation().x-20, this.getLocation().y-20);
-        this.setLocation(this.getLocation().x+20, this.getLocation().y+20);
-        this.setLocation(this.getLocation().x-20, this.getLocation().y-20);
-        this.setLocation(this.getLocation().x+20, this.getLocation().y+20);
-        this.setLocation(this.getLocation().x-10, this.getLocation().y-10);
+        int shake = 10;
+        int originalX = this.getLocation().x;
+        int originalY = this.getLocation().y;
+
+        this.setLocation((int)(this.getLocation().x+shake), (int)(this.getLocation().y+shake));
+        try{
+        Thread.sleep(40);
+        }catch(Exception e){
+            System.out.println("waiting failed");
+        }
+        this.setLocation((int)(this.getLocation().x-shake), (int)(this.getLocation().y-shake));
+        try{
+            Thread.sleep(40);
+        }catch(Exception e){
+            System.out.println("waiting failed");
+        }
+        this.setLocation(originalX,originalY);
     }
 }
