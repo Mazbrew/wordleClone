@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Words{
     private File Library = new File("Library.txt");
-    private RandomAccessFile Guesses = new RandomAccessFile("Guesses.txt","r");
+    private RandomAccessFile Guesses;
 
     private Scanner scan;
 
@@ -34,7 +34,7 @@ public class Words{
     public char[] generateWord(){
         char word[] = new char[5];
         try{
-            Guesses = new RandomAccessFile("Guesses.txt","r");
+            Guesses = new RandomAccessFile("Sassy.txt","r");
             long pos = (long) (Math.random() * Guesses.length());
             Guesses.seek(pos);
             Guesses.readLine();

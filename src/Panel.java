@@ -55,7 +55,11 @@ public class Panel extends JPanel implements KeyListener{
     }
 
     private void paintBoard(Graphics g){
-        Boolean account[] = new Boolean[5];
+        int inWord =0;
+        int acc = 0;
+        int unacc = 0;
+
+
         g.setColor(Color.white);
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform affinetransform = new AffineTransform(); 
@@ -69,22 +73,31 @@ public class Panel extends JPanel implements KeyListener{
 
         for(int i=0;i<6;i++){
             for(int j=0;j<5;j++){
+                inWord=0;
                 if(userWords[i][j]!=' '){
                     if(i<userCharY){
+                        g.setColor(new Color(45,45,45));
+                        g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
+
                         if(userWords[i][j]== gameWord[j]){
-                            account[j] = true;
                             g.setColor(new Color(43,83,41));
                             g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
-                        }else{
-                            g.setColor(new Color(45,45,45));
-                            g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
+                        }
+
+                        for(int z=0;z<5;z++){
+                            if(userWords[i][j]==gameWord[z]){
+                                inWord++;
+                                System.out.println(inWord);
+                            }
+                        }
+
+                        for(int z=0;z<5;z++){
+                            if(userWords[i][j]==gameWord[z] && userWords[i][j]!= gameWord[j]){
+                                g.setColor(new Color(255,211,0));
+                                g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
+                            }
                         }
                     }
-                    
-                    for(int z=0;z<5;z++){
-
-                    }
-
                     g.setColor(Color.white);
                     g2d.drawString(String.valueOf(userWords[i][j]), (j+1)*10+j*50+50/2-textwidth/2,(i+1)*10+i*50+50-textheight/6);
                 }
