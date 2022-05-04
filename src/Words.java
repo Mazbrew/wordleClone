@@ -39,7 +39,7 @@ public class Words{
             Guesses.seek(pos);
             Guesses.readLine();
 
-            wordString = Guesses.readLine();
+            wordString = Guesses.readLine().toUpperCase();
             Guesses.close();
         }catch(Exception e){
             System.out.println("failed to read file");

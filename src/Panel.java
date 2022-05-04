@@ -55,6 +55,7 @@ public class Panel extends JPanel implements KeyListener{
     }
 
     private void paintBoard(Graphics g){
+        Boolean account[] = new Boolean[5];
         g.setColor(Color.white);
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform affinetransform = new AffineTransform(); 
@@ -69,10 +70,21 @@ public class Panel extends JPanel implements KeyListener{
         for(int i=0;i<6;i++){
             for(int j=0;j<5;j++){
                 if(userWords[i][j]!=' '){
-                    if(userCharY>i){
-                        g.setColor(new Color(45,45,45));
-                        g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
+                    if(i<userCharY){
+                        if(userWords[i][j]== gameWord[j]){
+                            account[j] = true;
+                            g.setColor(new Color(43,83,41));
+                            g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
+                        }else{
+                            g.setColor(new Color(45,45,45));
+                            g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
+                        }
                     }
+                    
+                    for(int z=0;z<5;z++){
+
+                    }
+
                     g.setColor(Color.white);
                     g2d.drawString(String.valueOf(userWords[i][j]), (j+1)*10+j*50+50/2-textwidth/2,(i+1)*10+i*50+50-textheight/6);
                 }
@@ -102,6 +114,9 @@ public class Panel extends JPanel implements KeyListener{
 
         // backspace logic
         if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+            if(userWords[userCharY][userCharX]==' ' && userCharX!=0){
+                userCharX--;
+            }
             if(userCharX !=0){
                 userWords[userCharY][userCharX--] = ' ';
             }
@@ -109,6 +124,10 @@ public class Panel extends JPanel implements KeyListener{
                 userWords[userCharY][userCharX] = ' ';
             }
             repaint();
+
+            if(userWords[userCharY][userCharX]!=' ' && userCharX!=4){
+                userCharX++;
+            }
         }
 
         // enter logic
