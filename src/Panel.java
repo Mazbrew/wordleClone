@@ -30,6 +30,10 @@ public class Panel extends JPanel implements KeyListener{
         }
     }
 
+    public void gameOver(){
+        System.out.println("Game Over");
+    }
+
     protected void paintComponent(Graphics g){
         g.setColor(new Color(96,96,96));
         g.fillRect(0, 0, this.getSize().width, this.getSize().height);
@@ -69,6 +73,7 @@ public class Panel extends JPanel implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
+        // key logic
         if(e.getKeyChar() >= 'A' && e.getKeyChar() <= 'Z' || e.getKeyChar() >= 'a' && e.getKeyChar() <= 'z'){
             if(userWords[userCharY][userCharX]==' '){
                 userWords[userCharY][userCharX] = Character.toUpperCase(e.getKeyChar());
@@ -76,15 +81,32 @@ public class Panel extends JPanel implements KeyListener{
             if(userCharX !=4){  
                 userCharX++;
             }
-            System.out.println(userCharX);
-            
             repaint();
         }
 
+        // backspace logic
         if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
-
+            if(userCharX !=0){
+                userWords[userCharY][userCharX--] = ' ';
+            }
+            else if(userCharX ==0){
+                userWords[userCharY][userCharX] = ' ';
+            }
+            repaint();
         }
 
+        // enter logic
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            if(userCharY != 5){
+                if(userWords[userCharY][4] != ' '){
+                    userCharX = 0;
+                    userCharY ++;
+                }
+            }
+            else if(userCharY==5){
+                gameOver();
+            }
+        }
     }
 
     @Override
