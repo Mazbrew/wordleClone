@@ -15,13 +15,21 @@ public class Panel extends JPanel implements KeyListener{
     private int userCharX=0;
     private int userCharY=0;
 
-    public Panel(){
+    public Words words = new Words();
+
+    private Frame frame;
+
+    public Panel(Frame frame) throws Exception{
         super();
         this.setBounds(0,0,310,370);
         this.setVisible(true);
 
         this.setFocusable(true);
         this.addKeyListener(this);
+
+        this.frame = frame;
+        this.frame.add(this);
+        this.requestFocus();
 
         for(int i=0;i<6;i++){
             for(int j=0;j<5;j++){
@@ -98,11 +106,22 @@ public class Panel extends JPanel implements KeyListener{
         }
 
         // enter logic
+        String checkInput = new String();
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             if(userCharY <= 5){
                 if(userWords[userCharY][4] != ' '){
-                    userCharX = 0;
-                    userCharY ++;
+                    for(int i=0;i<5;i++){
+                        checkInput += userWords[userCharY][i];
+                        System.out.println(checkInput);
+                    }
+
+                    if(words.checkExist(checkInput.toLowerCase())==false){
+                        frame.shake();
+                    }else{
+                        userCharX = 0;
+                        userCharY ++;
+                    }  
+
                     if(userWords[5][4] != ' '){
                         gameOver();
                     }
