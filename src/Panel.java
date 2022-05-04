@@ -51,13 +51,9 @@ public class Panel extends JPanel implements KeyListener{
         int textheight = (int)(font.getStringBounds(String.valueOf(userWords[0][0]), frc).getHeight());
 
         g2d.setFont(font);
-        
-        // Draw a string such that its base line is at x, y
-        
+
         for(int i=0;i<6;i++){
             for(int j=0;j<5;j++){
-                g.drawRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
-                
                 if(userWords[i][j]!=' '){
                     if(userCharY>i){
                         g.setColor(new Color(45,45,45));
@@ -66,6 +62,7 @@ public class Panel extends JPanel implements KeyListener{
                     g.setColor(Color.white);
                     g2d.drawString(String.valueOf(userWords[i][j]), (j+1)*10+j*50+50/2-textwidth/2,(i+1)*10+i*50+50-textheight/6);
                 }
+                g.drawRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
             }
         }
     }
@@ -102,15 +99,15 @@ public class Panel extends JPanel implements KeyListener{
 
         // enter logic
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
-            if(userCharY != 5){
+            if(userCharY <= 5){
                 if(userWords[userCharY][4] != ' '){
                     userCharX = 0;
                     userCharY ++;
+                    if(userWords[5][4] != ' '){
+                        gameOver();
+                    }
                     repaint();
                 }
-            }
-            else if(userCharY==5 && userWords[userCharY][4] != ' '){
-                gameOver();
             }
         }
     }
