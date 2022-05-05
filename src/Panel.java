@@ -381,16 +381,12 @@ public class Panel extends JPanel implements KeyListener{
                 //second row
                 if(i==1 && j==0){
                     if(keyboard[0]==0){
-                        System.out.println("0");
                         g.setColor(new Color(45,45,45));
                     }else if(keyboard[0]==1){
-                        System.out.println("1");
                         g.setColor(new Color(255,211,0));
                     }else if(keyboard[0]==2){
-                        System.out.println("2");
                         g.setColor(new Color(43,83,41));
                     }else if(keyboard[0]==-1){
-                        System.out.println("-1");
                         g.setColor(new Color(240,234,214));
                     }
                     g.fillRect((j+1)*10+j*20+10,(i+1)*10+i*20+headboardOffset, 20, 20);
@@ -705,14 +701,13 @@ public class Panel extends JPanel implements KeyListener{
                         if(checkWin==5){
                             win=true;
                         }
+
+                        if(userCharY==5 && words.checkExist(checkInput.toLowerCase())==true){
+                            lose=true;
+                        }
                         
                         userCharY ++;
-                    }  
-
-
-                    if(userWords[5][4] != ' '){
-                        lose = true;
-                    }
+                    } 
                     repaint();
                 }
             }
