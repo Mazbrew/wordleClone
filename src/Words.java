@@ -45,7 +45,6 @@ public class Words{
             generateWord();
         }
 
-        System.out.println(wordString);
         for(int i=0;i<5;i++){
             word[i]= wordString.charAt(i);
         }

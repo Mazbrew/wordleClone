@@ -681,7 +681,10 @@ public class Panel extends JPanel implements KeyListener{
 
         // enter logic
         int checkWin=0;
-        if((e.getKeyCode() == KeyEvent.VK_ENTER) && (!win && !lose)){
+        if((e.getKeyCode() == KeyEvent.VK_ENTER)){
+            if(win||lose){
+                gameReset();
+            }
             if(userCharY <= 5){
                 if(userWords[userCharY][4] != ' '){
                     checkInput=new String();
