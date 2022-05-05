@@ -34,7 +34,7 @@ public class Words{
     public char[] generateWord(){
         char word[] = new char[5];
         try{
-            Guesses = new RandomAccessFile("Sassy.txt","r");
+            Guesses = new RandomAccessFile("Guesses.txt","r");
             long pos = (long) (Math.random() * Guesses.length());
             Guesses.seek(pos);
             Guesses.readLine();

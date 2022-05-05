@@ -44,23 +44,37 @@ public class Panel extends JPanel implements KeyListener{
         }
     }
 
-    public void gameOver(){
+    private void gameReset(){
+        for(int i=0;i<6;i++){
+            for(int j=0;j<5;j++){
+                userWords[i][j]=' ';
+            }
+        }
+
+        gameWord = words.generateWord();
+
+        userCharX =0;
+        userCharY =0;
+
+        repaint();
+    }
+
+    private void gameOver(){
         System.out.println("Game Over");
     }
 
     protected void paintComponent(Graphics g){
         g.setColor(new Color(96,96,96));
         g.fillRect(0, 0, this.getSize().width, this.getSize().height);
+        paintHeader(g);
         paintBoard(g);
     }
 
+    private void paintHeader(Graphics g){
+        
+    }
+
     private void paintBoard(Graphics g){
-        int inWord =0;
-        int acc = 0;
-        int unacc = 0;
-
-
-        g.setColor(Color.white);
         Graphics2D g2d = (Graphics2D) g;
         AffineTransform affinetransform = new AffineTransform(); 
         FontRenderContext frc = new FontRenderContext(affinetransform,true,true); 
@@ -71,9 +85,9 @@ public class Panel extends JPanel implements KeyListener{
 
         g2d.setFont(font);
 
+        //draw green and grey tiles
         for(int i=0;i<6;i++){
             for(int j=0;j<5;j++){
-                inWord=0;
                 if(userWords[i][j]!=' '){
                     if(i<userCharY){
                         g.setColor(new Color(45,45,45));
@@ -83,24 +97,50 @@ public class Panel extends JPanel implements KeyListener{
                             g.setColor(new Color(43,83,41));
                             g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
                         }
+                    }
+                }
+            }
+        }
 
-                        for(int z=0;z<5;z++){
-                            if(userWords[i][j]==gameWord[z]){
-                                inWord++;
-                                System.out.println(inWord);
-                            }
+        //draw yellow tiles
+        int inword=0;
+        int accounted = 0;
+
+        for(int i=0;i<6;i++){
+            for(int j=0;j<5;j++){
+                inword=0;
+                accounted =0;
+                if(i<userCharY){
+                    //checks for instances of the letter within the word
+                    for(int z=0;z<5;z++){
+                        if(userWords[i][j]==gameWord[z]){
+                            inword++;
                         }
+                        
 
-                        for(int z=0;z<5;z++){
-                            if(userWords[i][j]==gameWord[z] && userWords[i][j]!= gameWord[j]){
-                                g.setColor(new Color(255,211,0));
-                                g.fillRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
-                            }
+                        if(userWords[i][j]==userWords[i][z] && userWords[i][z]==gameWord[z]){
+                            accounted++;
                         }
                     }
-                    g.setColor(Color.white);
-                    g2d.drawString(String.valueOf(userWords[i][j]), (j+1)*10+j*50+50/2-textwidth/2,(i+1)*10+i*50+50-textheight/6);
+
+                    //checks if the letter has already be accounted for
+                    for(int z=0;z<5;z++){
+                        if(userWords[i][j]==userWords[i][z] && userWords[i][z]!=gameWord[z] && inword!=accounted){
+                            g.setColor(new Color(255,211,0));
+                            g.fillRect((z+1)*10+z*50,(i+1)*10+i*50, 50, 50);
+                            accounted++;
+                        }
+                    }
                 }
+            }
+        }
+
+        //draw the words and rectangles
+        for(int i=0;i<6;i++){
+            for(int j=0;j<5;j++){
+                g.setColor(Color.white);
+                g2d.drawString(String.valueOf(userWords[i][j]), (j+1)*10+j*50+50/2-textwidth/2,(i+1)*10+i*50+50-textheight/6);
+                g.setColor(Color.white);
                 g.drawRect((j+1)*10+j*50,(i+1)*10+i*50, 50, 50);
             }
         }
@@ -165,6 +205,10 @@ public class Panel extends JPanel implements KeyListener{
                     repaint();
                 }
             }
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_F5){
+            gameReset();
         }
     }
 
