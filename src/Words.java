@@ -42,10 +42,8 @@ public class Words{
             wordString = Guesses.readLine().toUpperCase();
             Guesses.close();
         }catch(Exception e){
-            System.out.println("failed to read file");
+            generateWord();
         }
-
-        System.out.println(wordString);
 
         for(int i=0;i<5;i++){
             word[i]= wordString.charAt(i);
