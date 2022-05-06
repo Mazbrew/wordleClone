@@ -705,7 +705,7 @@ public class Panel extends JPanel implements KeyListener{
                             win=true;
                         }
 
-                        if(userCharY==5 && words.checkExist(checkInput.toLowerCase())==true){
+                        if(userCharY==5 && words.checkExist(checkInput.toLowerCase())==true && checkWin != 5){
                             lose=true;
                         }
                         
