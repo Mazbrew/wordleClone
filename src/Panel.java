@@ -99,7 +99,7 @@ public class Panel extends JPanel implements KeyListener{
             }
         }else{
             g.setColor(new Color(240,234,214));
-            headerText = "WORDLE";
+            headerText = "MAZDLE";
         }
 
         g.fillRect(0, 0, this.getSize().width, 50);

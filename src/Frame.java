@@ -8,7 +8,7 @@ public class Frame extends JFrame {
     public Frame(){
         super();
         this.setResizable(false);
-        this.setTitle("Wordle Clone");
+        this.setTitle("MAZDLE");
         this.getContentPane().setPreferredSize(new Dimension(310,520));
         this.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-310/2,Toolkit.getDefaultToolkit().getScreenSize().height/2-520/2);
         this.pack();
