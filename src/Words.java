@@ -18,7 +18,7 @@ public class Words{
         try{
             scan = new Scanner(Library);
         }catch (Exception e){
-            System.out.println("file not found");
+            System.out.println("ERROR");
         } 
 
         if(scan.useDelimiter("\\Z").next().contains(word))
@@ -36,13 +36,13 @@ public class Words{
         try{
             Guesses = new RandomAccessFile("Guesses.txt","r");
             long pos = (long) (Math.random() * Guesses.length());
-            Guesses.seek(pos);
-            Guesses.readLine();
+            System.out.println(pos-(pos%7));
+            Guesses.seek(pos-(pos%7));
 
             wordString = Guesses.readLine().toUpperCase();
             Guesses.close();
         }catch(Exception e){
-            generateWord();
+            System.out.println("ERROR");
         }
 
         for(int i=0;i<5;i++){
