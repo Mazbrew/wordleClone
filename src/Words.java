@@ -36,8 +36,8 @@ public class Words{
         try{
             Guesses = new RandomAccessFile("Guesses.txt","r");
             long pos = (long) (Math.random() * Guesses.length());
-            System.out.println(pos-(pos%7));
-            Guesses.seek(pos-(pos%7));
+            System.out.println(pos-(pos%6));
+            Guesses.seek(pos-(pos%6));
 
             wordString = Guesses.readLine().toUpperCase();
             Guesses.close();
