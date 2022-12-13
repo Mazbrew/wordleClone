@@ -1,3 +1,4 @@
+package com.mazbrew;
 import java.awt.Dimension;
 
 import java.awt.*;

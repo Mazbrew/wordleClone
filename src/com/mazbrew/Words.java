@@ -1,3 +1,4 @@
+package com.mazbrew;
 import java.io.File;
 import java.io.RandomAccessFile;
 import java.util.Scanner;
